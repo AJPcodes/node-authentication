@@ -2,66 +2,46 @@
 
 const path = require('path')
 const express = require('express')
-const bodyParser = require('body-parser')
-const PORT = process.env.PORT || 3000;
-const app = express();
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
-const SESSION_SECRET = process.env.SESSION_SECRET || 'supersecret';
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 
+const SESSION_SECRET = process.env.SESSION_SECRET || 'supersecret';
+const PORT = process.env.PORT || 3000;
+const app = express();
+const userRoutes = require('./lib/user/routes.js');
+const bcrypt = require('bcrypt');
+
+app.locals.user = {email: 'Guest'};
+
+app.set('view engine', 'jade');
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'www')));
 
 app.use(session({
   secret: SESSION_SECRET,
   store: new RedisStore()
 }));
 
-app.use((req,res, next) => {
+app.use((req, res, next) => {
+  app.locals.user = req.session.user || {email: 'Guest'};
   req.session.visits = req.session.visits || {};
   req.session.visits[req.url] = req.session.visits[req.url] || 0;
   req.session.visits[req.url]++
-  console.log(req.session);
   next();
-})
-
-app.set('view engine', 'jade');
-
-app.get('/', (req, res) => {
-  res.redirect('login');
 });
 
-app.get('/home', (req, res) => {
-  res.render('index');
-});
 
-app.get('/login', (req, res) => {
-  res.render('login');
-});
+app.use(userRoutes);
+app.use(express.static(path.join(__dirname, 'www')));
 
-app.post('/login', (req, res) => {
-  res.redirect('/home');
-});
 
-app.get('/register', (req, res) => {
-  res.render('register');
-});
 
-app.post('/register', (req, res) => {
-
-  if (req.body.password === req.body.verify) {
-    res.redirect('/login');
-  } else {
-    res.render('register', {
-      email: req.body.email,
-      message: "Your password inputs don't match!"
-    });
-  }
-
-});
-
-app.listen(PORT, (err) => {
+mongoose.connect('mongodb://localhost:27017/nodeauth', (err) => {
   if (err) throw err;
-  console.log('Server running on ', PORT)
+  app.listen(PORT, (err) => {
+    if (err) throw err;
+    console.log('Server running on ', PORT)
+  })
 })
