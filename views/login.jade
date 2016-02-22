@@ -1,7 +1,7 @@
 head
   include ./includes/head.jade
-body
-  form(method='POST' action='/login')
+body.container
+  form.card(method='POST' action='/login')
     .input-field
       label(for='email') Email
       input(type='email' name='email' required)

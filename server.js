@@ -6,14 +6,24 @@ const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 3000;
 const app = express();
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 const SESSION_SECRET = process.env.SESSION_SECRET || 'supersecret';
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'www')));
+
 app.use(session({
-  secret: SESSION_SECRET
+  secret: SESSION_SECRET,
+  store: new RedisStore()
 }));
+
+app.use((req,res, next) => {
+  req.session.count = (req.session.count) ? req.session.count : 0;
+  req.session.count++;
+  console.log(req.session);
+  next();
+})
 
 app.set('view engine', 'jade');
 
