@@ -1,15 +1,20 @@
-form(method='POST' action='/register')
-  .input-field
-    label(for='email') Email
-    input(type='email' name='email' required value=email)
-  .input-field
-    label(for='pass') Password
-    input#pass(type='password' name='password' require)
-  .input-field
-    label(for='pass') Verify
-    input#verify(type='password' name='verify' require)
-  .input-field
-    input(type='submit' value='Register')
-if message
-  p= message
-p or <a href='/login'> login</a>
+head
+    include ./includes/head.jade
+body
+  form(method='POST' action='/register')
+    .input-field
+      label(for='email') Email
+      input(type='email' name='email' required value=email)
+    .input-field
+      label(for='pass') Password
+      input#pass(type='password' name='password' require)
+    .input-field
+      label(for='pass') Verify
+      input#verify(type='password' name='verify' require)
+    .input-field
+      input(type='submit' value='Register')
+  if message
+    p= message
+  p or <a href='/login'> login</a>
+
+  include ./includes/scripts.jade

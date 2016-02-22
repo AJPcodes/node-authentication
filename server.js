@@ -1,11 +1,19 @@
 "use strict";
 
+const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 3000;
 const app = express();
+const session = require('express-session');
+const SESSION_SECRET = process.env.SESSION_SECRET || 'supersecret';
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'www')));
+app.use(session({
+  secret: SESSION_SECRET
+}));
 
 app.set('view engine', 'jade');
 

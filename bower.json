@@ -1,0 +1,21 @@
+{
+  "name": "node-authentication",
+  "description": "NSS project to learn Nodejs authentication",
+  "main": "server.js",
+  "authors": [
+    "Allen Phelps github.com/ajpcodes"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/AJPcodes/node-authentication",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Materialize": "materialize#^0.97.5"
+  }
+}

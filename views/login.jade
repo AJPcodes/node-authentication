@@ -1,11 +1,16 @@
-form(method='POST' action='/login')
-  .input-field
-    label(for='email') Email
-    input(type='email' name='email' required)
-  .input-field
-    label(for='pass') Password
-    input(type='password' name='password' require)
-  .input-field
-    input(type='submit' value='Login')
+head
+  include ./includes/head.jade
+body
+  form(method='POST' action='/login')
+    .input-field
+      label(for='email') Email
+      input(type='email' name='email' required)
+    .input-field
+      label(for='pass') Password
+      input(type='password' name='password' require)
+    .input-field
+      input(type='submit' value='Login')
 
-p or <a href='/register'> register</a>
+    p or <a href='/register'> register</a>
+
+  include ./includes/scripts.jade

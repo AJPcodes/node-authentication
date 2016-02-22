@@ -20,7 +20,9 @@
   "homepage": "https://github.com/AJPcodes/node-authentication#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "bower": "^1.7.7",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
     "jade": "^1.11.0"
   },
   "devDependencies": {
