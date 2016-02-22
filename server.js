@@ -11,7 +11,6 @@ const SESSION_SECRET = process.env.SESSION_SECRET || 'supersecret';
 const PORT = process.env.PORT || 3000;
 const app = express();
 const userRoutes = require('./lib/user/routes.js');
-const bcrypt = require('bcrypt');
 
 app.locals.user = {email: 'Guest'};
 

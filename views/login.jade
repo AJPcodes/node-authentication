@@ -1,6 +1,9 @@
 head
   include ./includes/head.jade
 body.container
+  .card
+    if message
+      p= message
   form.card(method='POST' action='/login')
     .input-field
       label(for='email') Email
@@ -11,6 +14,8 @@ body.container
     .input-field
       input.btn(type='submit' value='Login')
 
+  .card
+    p #{message}
     p or <a href='/register'> register</a>
 
   include ./includes/scripts.jade
