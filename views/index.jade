@@ -6,6 +6,8 @@ html
   body
     include ./includes/navBar.jade
     .container
+      if message
+        p= message
 
       h1 Hellllllooooooo #{user.email}
 

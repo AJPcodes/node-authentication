@@ -6,6 +6,7 @@ const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
+const passport = require('passport')
 
 const SESSION_SECRET = process.env.SESSION_SECRET || 'supersecret';
 const PORT = process.env.PORT || 3000;
@@ -24,12 +25,15 @@ app.use(session({
   secret: SESSION_SECRET,
   store: new RedisStore()
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((req, res, next) => {
-  app.locals.user = req.session.user || {email: 'Guest'};
-  req.session.visits = req.session.visits || {};
-  req.session.visits[req.url] = req.session.visits[req.url] || 0;
-  req.session.visits[req.url]++
+  app.locals.user = req.user || {email: 'Guest'};
+  // mock middleware for analytics
+  // req.session.visits = req.session.visits || {};
+  // req.session.visits[req.url] = req.session.visits[req.url] || 0;
+  // req.session.visits[req.url]++
   next();
 });
 
