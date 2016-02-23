@@ -1,22 +1,24 @@
 head
     include ./includes/head.jade
-body.container
-  form.card(method='POST' action='/register')
-    .input-field
-      label(for='email') Email
-      input(type='email' name='email' required value=email)
-    .input-field
-      label(for='pass') Password
-      input#pass(type='password' name='password' require)
-    .input-field
-      label(for='pass') Verify
-      input#verify(type='password' name='verify' require)
-    .input-field
-      input.btn(type='submit' value='Register')
+body
+  include ./includes/navBar.jade
+  .container
+    form.card(method='POST' action='/register')
+      .input-field
+        label(for='email') Email
+        input(type='email' name='email' required value=email)
+      .input-field
+        label(for='pass') Password
+        input#pass(type='password' name='password' require)
+      .input-field
+        label(for='pass') Verify
+        input#verify(type='password' name='verify' require)
+      .input-field
+        input.btn(type='submit' value='Register')
 
-  .card
-    if message
-      p= message
-    p or <a href='/login'> login</a>
+    .card
+      if message
+        p= message
+      p or <a href='/login'> login</a>
 
   include ./includes/scripts.jade

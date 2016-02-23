@@ -1,0 +1,22 @@
+nav
+  div.nav-wrapper
+    a.brand-logo.left NodeAuth
+    ul.right
+      if user.email !== 'Guest'
+        li
+          form(action='/login?_method=delete', method='POST')
+            a
+              input.btn(type='submit', value='Logout')
+      else
+        li
+          form(action='/login', method='GET')
+            a
+              input.btn(type='submit', value='Login')
+        li
+          form(action='/register', method='GET')
+            a
+              input.btn(type='submit', value='register')
+      li
+        form(action='/home', method='GET')
+          a
+            input.btn(type='submit', value='home')

@@ -11,12 +11,14 @@ const SESSION_SECRET = process.env.SESSION_SECRET || 'supersecret';
 const PORT = process.env.PORT || 3000;
 const app = express();
 const userRoutes = require('./lib/user/routes.js');
+const methodOverride = require('method-override')
 
-app.locals.user = {email: 'Guest'};
+// override with POST having ?_method=DELETE
 
 app.set('view engine', 'jade');
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
 
 app.use(session({
   secret: SESSION_SECRET,
